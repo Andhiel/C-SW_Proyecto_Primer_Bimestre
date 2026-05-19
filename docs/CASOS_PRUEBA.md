@@ -105,13 +105,14 @@ result.tokens.forEach(token => {
 **Descripción**: Verificar manejo de letras mayúsculas  
 **Precondiciones**: Motor de transcripción inicializado  
 **Entrada**: `"Hola"`  
-**Salida Esperada**: Símbolos con indicador de mayúscula  
+**Salida Esperada**: Símbolos con indicador de mayúscula (⇧) antes de la letra H  
 **Resultado**: ✅ **EXITOSO**
 
 ```typescript
 const result = transcriber.transcribe('Hola');
 expect(result.symbols.length).toBeGreaterThan(4); // Incluye indicador de mayúscula
-expect(result.tokens[0].character).toBe('H');
+expect(result.tokens[0].character).toBe('⇧'); // Indicador de mayúscula
+expect(result.tokens[1].character).toBe('H');
 ```
 
 **Análisis**: El sistema correctamente agrega el indicador de mayúscula para la letra 'H'.
@@ -273,16 +274,17 @@ texts.forEach(text => {
 **Descripción**: Verificar caracteres especiales españoles  
 **Precondiciones**: Motor de transcripción inicializado  
 **Entrada**: `"ñüÑÜ"`  
-**Salida Esperada**: Transcripción correcta  
+**Salida Esperada**: Transcripción correcta con indicadores de mayúscula para Ñ y Ü  
 **Resultado**: ✅ **EXITOSO**
 
 ```typescript
 const result = transcriber.transcribe('ñüÑÜ');
-expect(result.symbols).toHaveLength(4);
+expect(result.symbols.length).toBeGreaterThan(4); // Incluye indicadores de mayúscula
 expect(result.statistics.unrecognizedCharacters).toBe(0);
+// Debe incluir indicadores de mayúscula antes de Ñ y Ü
 ```
 
-**Análisis**: Los caracteres especiales del español son correctamente transcritos.
+**Análisis**: Los caracteres especiales del español son correctamente transcritos con indicadores de mayúscula apropiados.
 
 ---
 
@@ -291,17 +293,18 @@ expect(result.statistics.unrecognizedCharacters).toBe(0);
 **Descripción**: Verificar signos de puntuación españoles  
 **Precondiciones**: Motor de transcripción inicializado  
 **Entrada**: `"¿Hola mundo!"`  
-**Salida Esperada**: Transcripción correcta  
+**Salida Esperada**: Transcripción correcta con indicador de mayúscula para H  
 **Resultado**: ✅ **EXITOSO**
 
 ```typescript
 const result = transcriber.transcribe('¿Hola mundo!');
 expect(result.tokens[0].type).toBe(TokenType.PUNCTUATION); // ¿
-expect(result.tokens[12].type).toBe(TokenType.PUNCTUATION); // !
+expect(result.tokens[1].character).toBe('⇧'); // Indicador de mayúscula
+expect(result.tokens[2].character).toBe('H'); // H
 expect(result.statistics.unrecognizedCharacters).toBe(0);
 ```
 
-**Análisis**: Los signos de puntuación españoles son correctamente manejados.
+**Análisis**: Los signos de puntuación españoles son correctamente manejados junto con indicadores de mayúscula.
 
 ---
 
