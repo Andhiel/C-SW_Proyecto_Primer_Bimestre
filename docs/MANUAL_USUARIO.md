@@ -107,9 +107,15 @@ Una vez que hayas ingresado texto válido:
 
 #### 4.3.1 Modos de Visualización
 **Modo Puntos (predeterminado):**
-- Muestra el cuadratín Braille con puntos visuales
+- Muestra el cuadratín Braille en cuadrícula 2x3
 - ● = punto activo
 - ○ = punto inactivo
+- Formato estándar Braille:
+  ```
+  1  4
+  2  5
+  3  6
+  ```
 
 **Modo Binario:**
 - Muestra representación binaria (ej: 100000)

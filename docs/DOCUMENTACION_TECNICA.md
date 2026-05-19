@@ -211,10 +211,12 @@ constructor()
 **Parámetros**:
 - `character`: Carácter español a convertir
 **Retorna**: Símbolo Braille o null si no existe mapeo
+**Nota**: Las letras mayúsculas tienen el mismo código Braille que las minúsculas. El indicador de mayúscula se inserta separadamente.
 **Ejemplo**:
 ```typescript
 const mapper = new SpanishBrailleMapper();
-const symbol = mapper.getBrailleSymbol('a'); // → BrailleSymbol para 'A'
+const symbol = mapper.getBrailleSymbol('a'); // → BrailleSymbol para 'a'
+const symbolUpper = mapper.getBrailleSymbol('A'); // → BrailleSymbol para 'A' (mismo código)
 ```
 
 ##### hasMapping(character: string): boolean
@@ -305,7 +307,7 @@ constructor()
 ```typescript
 /**
  * Convierte texto español a Braille
- * @param text Texto en español a transcribir
+ * @param text Texto español a transcribir
  * @param config Configuración opcional de transcripción
  * @returns Resultado de la transcripción
  */
@@ -317,14 +319,15 @@ constructor()
 **Proceso**:
 1. Validar entrada
 2. Tokenizar texto
-3. Procesar tokens
+3. Procesar tokens (insertar indicadores de mayúscula y números)
 4. Generar símbolos
 5. Calcular estadísticas
+**Nota**: Las letras mayúsculas (incluyendo vocales acentuadas) reciben un indicador de mayúscula (⇧) antes del símbolo.
 **Ejemplo**:
 ```typescript
 const transcriber = new SpanishToBrailleTranscriber();
 const result = transcriber.transcribe('Hola mundo');
-console.log(result.brailleText); // → representación Braille
+console.log(result.brailleText); // → representación Braille con indicadores
 ```
 
 ##### validateInput(text: string): boolean
@@ -397,33 +400,40 @@ console.log(result.brailleText); // → representación Braille
 export const BrailleSymbol: React.FC<BrailleSymbolProps>
 ```
 
-**Responsabilidad**: Renderizar visualmente un símbolo Braille individual.
+**Responsabilidad**: Renderizar visualmente un símbolo Braille individual en formato de cuadrícula 2x3.
 
 #### Props
 ```typescript
 interface BrailleSymbolProps {
   /** Array de 6 booleanos representando los puntos [1,2,3,4,5,6] */
   dots: BrailleDots;
-  
+
   /** Tamaño del símbolo */
   size?: 'sm' | 'md' | 'lg';
-  
+
   /** Clases CSS adicionales */
   className?: string;
-  
+
   /** Modo de visualización */
   displayMode?: 'dots' | 'binary' | 'unicode';
-  
+
   /** Si es interactivo (clickable) */
   interactive?: boolean;
-  
+
   /** Callback al hacer click */
   onClick?: () => void;
 }
 ```
 
 #### Renderizado
-- **Modo dots**: Muestra el cuadratín con puntos visuales
+- **Modo dots**: Muestra el cuadratín en cuadrícula 2x3 con puntos visuales
+  - Formato estándar Braille: 2 columnas × 3 filas
+  - Puntos organizados como:
+    ```
+    1  4
+    2  5
+    3  6
+    ```
 - **Modo binary**: Muestra representación binaria (ej: "100000")
 - **Modo unicode**: Muestra caracteres Unicode Braille
 
