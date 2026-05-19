@@ -16,17 +16,29 @@ export default function Home() {
   const [unsupportedCharacters, setUnsupportedCharacters] = useState<string[]>([])
   
   const transcriber = new SpanishToBrailleTranscriber()
-  
+
+  /**
+   * Maneja el cambio de texto y limpia errores si el texto cambia
+   */
+  const handleTextChange = (newText: string) => {
+    setInputText(newText)
+    // Limpiar errores cuando el texto cambia
+    if (errors.length > 0 || unsupportedCharacters.length > 0) {
+      setErrors([])
+      setUnsupportedCharacters([])
+    }
+  }
+
   /**
    * Maneja la transcripción del texto
    */
   const handleTranscribe = async () => {
     if (!inputText.trim()) return
-    
+
     setIsProcessing(true)
     setErrors([])
     setUnsupportedCharacters([])
-    
+
     try {
       // Validar entrada
       const isValid = transcriber.validateInput(inputText)
@@ -36,11 +48,11 @@ export default function Home() {
         setErrors(['El texto contiene caracteres no soportados'])
         return
       }
-      
+
       // Realizar transcripción
       const result = transcriber.transcribe(inputText)
       setTranscriptionResult(result)
-      
+
     } catch (error) {
       setErrors([error instanceof Error ? error.message : 'Error en la transcripción'])
     } finally {
@@ -154,7 +166,7 @@ export default function Home() {
             <div className="space-y-6">
               <TextInput
                 value={inputText}
-                onChange={setInputText}
+                onChange={handleTextChange}
                 onTranscribe={handleTranscribe}
                 isProcessing={isProcessing}
                 errors={errors}

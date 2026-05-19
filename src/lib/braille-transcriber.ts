@@ -180,12 +180,12 @@ export class SpanishToBrailleTranscriber implements IBrailleTranscriber {
         inNumberSequence = false;
       }
       
-      // Manejar mayúsculas
-      if (config.formatting.preserveCase && 
-          token.type === TokenType.LETTER && 
-          token.character === token.character.toUpperCase() && 
+      // Manejar mayúsculas (incluye letras regulares y vocales acentuadas)
+      if (config.formatting.preserveCase &&
+          (token.type === TokenType.LETTER || token.type === TokenType.ACCENTED_VOWEL) &&
+          token.character === token.character.toUpperCase() &&
           token.character !== token.character.toLowerCase()) {
-        
+
         // Agregar indicador de mayúscula
         const capitalIndicatorToken: Token = {
           character: '⇧',

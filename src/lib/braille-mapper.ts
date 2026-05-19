@@ -52,34 +52,35 @@ export class SpanishBrailleMapper implements IBrailleMapper {
     this.addMapping('y', [true, false, true, true, true, true], 'Letra Y');
     this.addMapping('z', [true, false, true, false, true, true], 'Letra Z');
     
-    // Alfabeto español (mayúsculas) - mismo código pero con indicador de mayúscula
-    this.addMapping('A', [false, false, true, false, true, true], 'Indicador de Mayúscula + A');
-    this.addMapping('B', [false, false, true, false, true, true], 'Indicador de Mayúscula + B');
-    this.addMapping('C', [false, false, true, false, true, true], 'Indicador de Mayúscula + C');
-    this.addMapping('D', [false, false, true, false, true, true], 'Indicador de Mayúscula + D');
-    this.addMapping('E', [false, false, true, false, true, true], 'Indicador de Mayúscula + E');
-    this.addMapping('F', [false, false, true, false, true, true], 'Indicador de Mayúscula + F');
-    this.addMapping('G', [false, false, true, false, true, true], 'Indicador de Mayúscula + G');
-    this.addMapping('H', [false, false, true, false, true, true], 'Indicador de Mayúscula + H');
-    this.addMapping('I', [false, false, true, false, true, true], 'Indicador de Mayúscula + I');
-    this.addMapping('J', [false, false, true, false, true, true], 'Indicador de Mayúscula + J');
-    this.addMapping('K', [false, false, true, false, true, true], 'Indicador de Mayúscula + K');
-    this.addMapping('L', [false, false, true, false, true, true], 'Indicador de Mayúscula + L');
-    this.addMapping('M', [false, false, true, false, true, true], 'Indicador de Mayúscula + M');
-    this.addMapping('N', [false, false, true, false, true, true], 'Indicador de Mayúscula + N');
-    this.addMapping('Ñ', [false, false, true, false, true, true], 'Indicador de Mayúscula + Ñ');
-    this.addMapping('O', [false, false, true, false, true, true], 'Indicador de Mayúscula + O');
-    this.addMapping('P', [false, false, true, false, true, true], 'Indicador de Mayúscula + P');
-    this.addMapping('Q', [false, false, true, false, true, true], 'Indicador de Mayúscula + Q');
-    this.addMapping('R', [false, false, true, false, true, true], 'Indicador de Mayúscula + R');
-    this.addMapping('S', [false, false, true, false, true, true], 'Indicador de Mayúscula + S');
-    this.addMapping('T', [false, false, true, false, true, true], 'Indicador de Mayúscula + T');
-    this.addMapping('U', [false, false, true, false, true, true], 'Indicador de Mayúscula + U');
-    this.addMapping('V', [false, false, true, false, true, true], 'Indicador de Mayúscula + V');
-    this.addMapping('W', [false, false, true, false, true, true], 'Indicador de Mayúscula + W');
-    this.addMapping('X', [false, false, true, false, true, true], 'Indicador de Mayúscula + X');
-    this.addMapping('Y', [false, false, true, false, true, true], 'Indicador de Mayúscula + Y');
-    this.addMapping('Z', [false, false, true, false, true, true], 'Indicador de Mayúscula + Z');
+    // Alfabeto español (mayúsculas) - mismo código que minúsculas
+    // El indicador de mayúscula se inserta separadamente en el transcriber
+    this.addMapping('A', [true, false, false, false, false, false], 'Letra A (mayúscula)');
+    this.addMapping('B', [true, true, false, false, false, false], 'Letra B (mayúscula)');
+    this.addMapping('C', [true, false, false, true, false, false], 'Letra C (mayúscula)');
+    this.addMapping('D', [true, false, false, true, true, false], 'Letra D (mayúscula)');
+    this.addMapping('E', [true, false, false, false, true, false], 'Letra E (mayúscula)');
+    this.addMapping('F', [true, true, false, true, false, false], 'Letra F (mayúscula)');
+    this.addMapping('G', [true, true, false, true, true, false], 'Letra G (mayúscula)');
+    this.addMapping('H', [true, true, false, false, true, false], 'Letra H (mayúscula)');
+    this.addMapping('I', [false, true, false, true, false, false], 'Letra I (mayúscula)');
+    this.addMapping('J', [false, true, false, true, true, false], 'Letra J (mayúscula)');
+    this.addMapping('K', [true, false, true, false, false, false], 'Letra K (mayúscula)');
+    this.addMapping('L', [true, true, true, false, false, false], 'Letra L (mayúscula)');
+    this.addMapping('M', [true, false, true, true, false, false], 'Letra M (mayúscula)');
+    this.addMapping('N', [true, false, true, true, true, false], 'Letra N (mayúscula)');
+    this.addMapping('Ñ', [true, false, true, true, true, true], 'Letra Ñ (mayúscula)');
+    this.addMapping('O', [true, false, true, false, true, false], 'Letra O (mayúscula)');
+    this.addMapping('P', [true, true, true, true, false, false], 'Letra P (mayúscula)');
+    this.addMapping('Q', [true, true, true, true, true, false], 'Letra Q (mayúscula)');
+    this.addMapping('R', [true, true, true, false, true, false], 'Letra R (mayúscula)');
+    this.addMapping('S', [false, true, true, true, false, false], 'Letra S (mayúscula)');
+    this.addMapping('T', [false, true, true, true, true, false], 'Letra T (mayúscula)');
+    this.addMapping('U', [true, false, true, false, false, true], 'Letra U (mayúscula)');
+    this.addMapping('V', [true, true, true, false, false, true], 'Letra V (mayúscula)');
+    this.addMapping('W', [false, true, false, true, true, true], 'Letra W (mayúscula)');
+    this.addMapping('X', [true, false, true, true, false, true], 'Letra X (mayúscula)');
+    this.addMapping('Y', [true, false, true, true, true, true], 'Letra Y (mayúscula)');
+    this.addMapping('Z', [true, false, true, false, true, true], 'Letra Z (mayúscula)');
     
     // Vocales acentuadas
     this.addMapping('á', [true, false, false, false, false, true], 'Letra á');
@@ -88,11 +89,11 @@ export class SpanishBrailleMapper implements IBrailleMapper {
     this.addMapping('ó', [true, false, false, true, true, true], 'Letra ó');
     this.addMapping('ú', [true, false, false, false, true, true], 'Letra ú');
     
-    this.addMapping('Á', [false, false, true, false, true, true], 'Indicador de Mayúscula + á');
-    this.addMapping('É', [false, false, true, false, true, true], 'Indicador de Mayúscula + é');
-    this.addMapping('Í', [false, false, true, false, true, true], 'Indicador de Mayúscula + í');
-    this.addMapping('Ó', [false, false, true, false, true, true], 'Indicador de Mayúscula + ó');
-    this.addMapping('Ú', [false, false, true, false, true, true], 'Indicador de Mayúscula + ú');
+    this.addMapping('Á', [true, false, false, false, false, true], 'Letra Á (mayúscula)');
+    this.addMapping('É', [true, true, false, false, false, true], 'Letra É (mayúscula)');
+    this.addMapping('Í', [true, false, false, true, false, true], 'Letra Í (mayúscula)');
+    this.addMapping('Ó', [true, false, false, true, true, true], 'Letra Ó (mayúscula)');
+    this.addMapping('Ú', [true, false, false, false, true, true], 'Letra Ú (mayúscula)');
     
     // Números (requieren indicador numérico)
     this.addMapping('0', [false, true, true, true, true, true], 'Número 0');
@@ -124,7 +125,7 @@ export class SpanishBrailleMapper implements IBrailleMapper {
     
     // Signos especiales del español
     this.addMapping('ü', [true, false, true, false, true, true], 'Letra ü');
-    this.addMapping('Ü', [false, false, true, false, true, true], 'Indicador de Mayúscula + ü');
+    this.addMapping('Ü', [true, false, true, false, true, true], 'Letra Ü (mayúscula)');
   }
   
   /**

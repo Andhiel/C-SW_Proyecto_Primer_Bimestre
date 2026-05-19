@@ -42,11 +42,11 @@ export const BrailleSymbol: React.FC<BrailleSymbolProps> = ({
   interactive = false,
   onClick
 }) => {
-  // Tamaños predefinidos para el cuadratín
+  // Tamaños predefinidos para el cuadratín (2x3)
   const sizeClasses = {
-    sm: 'w-8 h-12',
-    md: 'w-10 h-16',
-    lg: 'w-12 h-20'
+    sm: 'w-6 h-8',
+    md: 'w-8 h-10',
+    lg: 'w-10 h-12'
   };
   
   // Tamaños de los puntos
@@ -56,12 +56,12 @@ export const BrailleSymbol: React.FC<BrailleSymbolProps> = ({
     lg: 'w-4 h-4'
   };
   
-  // Renderizado en modo de puntos visuales
+  // Renderizado en modo de puntos visuales (grid 2x3)
   if (displayMode === 'dots') {
     return (
       <div
         className={cn(
-          'relative flex flex-col justify-between p-1 border-2 border-gray-300 rounded',
+          'relative grid grid-cols-2 grid-rows-3 gap-1 p-1 border-2 border-gray-300 rounded',
           sizeClasses[size],
           interactive && 'cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors',
           className
@@ -77,61 +77,65 @@ export const BrailleSymbol: React.FC<BrailleSymbolProps> = ({
         } : undefined}
         aria-label={`Símbolo Braille: ${dotsToDescription(dots)}`}
       >
-        {/* Columna izquierda - puntos 1, 2, 3 */}
-        <div className="flex flex-col justify-between h-full">
-          <div
-            className={cn(
-              'rounded-full transition-colors',
-              dotSizes[size],
-              dots[0] ? 'bg-gray-900' : 'bg-gray-200'
-            )}
-            aria-hidden="true"
-          />
-          <div
-            className={cn(
-              'rounded-full transition-colors',
-              dotSizes[size],
-              dots[1] ? 'bg-gray-900' : 'bg-gray-200'
-            )}
-            aria-hidden="true"
-          />
-          <div
-            className={cn(
-              'rounded-full transition-colors',
-              dotSizes[size],
-              dots[2] ? 'bg-gray-900' : 'bg-gray-200'
-            )}
-            aria-hidden="true"
-          />
-        </div>
+        {/* Punto 1 - fila 1, columna 1 */}
+        <div
+          className={cn(
+            'rounded-full transition-colors justify-self-center self-center',
+            dotSizes[size],
+            dots[0] ? 'bg-gray-900' : 'bg-gray-200'
+          )}
+          aria-hidden="true"
+        />
         
-        {/* Columna derecha - puntos 4, 5, 6 */}
-        <div className="flex flex-col justify-between h-full">
-          <div
-            className={cn(
-              'rounded-full transition-colors',
-              dotSizes[size],
-              dots[3] ? 'bg-gray-900' : 'bg-gray-200'
-            )}
-            aria-hidden="true"
-          />
-          <div
-            className={cn(
-              'rounded-full transition-colors',
-              dotSizes[size],
-              dots[4] ? 'bg-gray-900' : 'bg-gray-200'
-            )}
-            aria-hidden="true"
-          />
-          <div
-            className={cn(
-              'rounded-full transition-colors',
-              dotSizes[size],
-              dots[5] ? 'bg-gray-900' : 'bg-gray-200'
-            )}
-            aria-hidden="true"
-          />
-        </div>
+        {/* Punto 4 - fila 1, columna 2 */}
+        <div
+          className={cn(
+            'rounded-full transition-colors justify-self-center self-center',
+            dotSizes[size],
+            dots[3] ? 'bg-gray-900' : 'bg-gray-200'
+          )}
+          aria-hidden="true"
+        />
+        
+        {/* Punto 2 - fila 2, columna 1 */}
+        <div
+          className={cn(
+            'rounded-full transition-colors justify-self-center self-center',
+            dotSizes[size],
+            dots[1] ? 'bg-gray-900' : 'bg-gray-200'
+          )}
+          aria-hidden="true"
+        />
+        
+        {/* Punto 5 - fila 2, columna 2 */}
+        <div
+          className={cn(
+            'rounded-full transition-colors justify-self-center self-center',
+            dotSizes[size],
+            dots[4] ? 'bg-gray-900' : 'bg-gray-200'
+          )}
+          aria-hidden="true"
+        />
+        
+        {/* Punto 3 - fila 3, columna 1 */}
+        <div
+          className={cn(
+            'rounded-full transition-colors justify-self-center self-center',
+            dotSizes[size],
+            dots[2] ? 'bg-gray-900' : 'bg-gray-200'
+          )}
+          aria-hidden="true"
+        />
+        
+        {/* Punto 6 - fila 3, columna 2 */}
+        <div
+          className={cn(
+            'rounded-full transition-colors justify-self-center self-center',
+            dotSizes[size],
+            dots[5] ? 'bg-gray-900' : 'bg-gray-200'
+          )}
+          aria-hidden="true"
+        />
       </div>
     );
   }

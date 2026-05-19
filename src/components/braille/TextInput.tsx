@@ -77,6 +77,19 @@ export const TextInput: React.FC<TextInputProps> = ({
       onChange(newValue);
     }
   };
+
+  /**
+   * Maneja eventos de teclado en el textarea
+   */
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Prevenir que Enter ejecute acciones no deseadas
+    // Permitir Shift+Enter para nueva línea si es necesario
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      // No hacer nada con Enter, solo prevenir el comportamiento por defecto
+      // El usuario debe hacer clic en el botón Transcribir
+    }
+  };
   
   /**
    * Maneja el drag and drop de archivos
@@ -130,10 +143,19 @@ export const TextInput: React.FC<TextInputProps> = ({
   };
   
   /**
-   * Limpia el texto
+   * Limpia el texto y los errores
    */
   const handleClear = () => {
     onChange('');
+    textareaRef.current?.focus();
+  };
+
+  /**
+   * Refresca el campo de texto (mantiene el texto pero limpia errores)
+   */
+  const handleRefresh = () => {
+    // El componente padre maneja la limpieza de errores
+    // Solo enfocamos el textarea
     textareaRef.current?.focus();
   };
   
@@ -153,30 +175,59 @@ export const TextInput: React.FC<TextInputProps> = ({
     if (errors.length === 0 && unsupportedCharacters.length === 0) {
       return null;
     }
-    
+
+    // Callback para refrescar (limpiar errores)
+    const handleRefreshErrors = () => {
+      // El componente padre debe manejar la limpieza de errores
+      // Por ahora, solo enfocamos el textarea
+      textareaRef.current?.focus();
+    };
+
     return (
       <div className="space-y-2">
         {errors.map((error, index) => (
           <div
             key={index}
-            className="flex items-center space-x-2 text-red-600 bg-red-50 border border-red-200 rounded-lg p-3"
+            className="flex items-center justify-between text-red-600 bg-red-50 border border-red-200 rounded-lg p-3"
           >
-            <AlertCircle className="h-5 w-5 flex-shrink-0" />
-            <span className="text-sm">{error}</span>
+            <div className="flex items-center space-x-2">
+              <AlertCircle className="h-5 w-5 flex-shrink-0" />
+              <span className="text-sm">{error}</span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleClear}
+              className="ml-2"
+            >
+              <X className="h-4 w-4 mr-1" />
+              Limpiar
+            </Button>
           </div>
         ))}
-        
+
         {unsupportedCharacters.length > 0 && (
-          <div className="flex items-center space-x-2 text-yellow-600 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-            <AlertCircle className="h-5 w-5 flex-shrink-0" />
-            <div>
-              <span className="text-sm font-medium">
-                Caracteres no soportados:
-              </span>
-              <span className="text-sm ml-2 font-mono bg-yellow-100 px-2 py-1 rounded">
-                {unsupportedCharacters.join(', ')}
-              </span>
+          <div className="flex items-center justify-between text-yellow-600 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+            <div className="flex items-center space-x-2">
+              <AlertCircle className="h-5 w-5 flex-shrink-0" />
+              <div>
+                <span className="text-sm font-medium">
+                  Caracteres no soportados:
+                </span>
+                <span className="text-sm ml-2 font-mono bg-yellow-100 px-2 py-1 rounded">
+                  {unsupportedCharacters.join(', ')}
+                </span>
+              </div>
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleClear}
+              className="ml-2"
+            >
+              <X className="h-4 w-4 mr-1" />
+              Limpiar
+            </Button>
           </div>
         )}
       </div>
@@ -256,6 +307,7 @@ export const TextInput: React.FC<TextInputProps> = ({
           ref={textareaRef}
           value={value}
           onChange={handleTextChange}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           maxLength={maxLength}
           className="w-full h-64 p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg"
